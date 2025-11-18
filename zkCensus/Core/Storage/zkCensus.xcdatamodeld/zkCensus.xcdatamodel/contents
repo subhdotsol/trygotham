@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+
+    <!-- User Profile Entity -->
+    <entity name="UserProfileEntity" representedClassName="UserProfileEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="userType" attributeType="String"/>
+        <attribute name="walletAddress" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="companyName" optional="YES" attributeType="String"/>
+        <attribute name="companyDescription" optional="YES" attributeType="String"/>
+        <attribute name="companyLogoUrl" optional="YES" attributeType="String"/>
+        <attribute name="companyWebsite" optional="YES" attributeType="String"/>
+        <attribute name="verificationStatus" optional="YES" attributeType="String"/>
+        <attribute name="hasCompletedKYC" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="zkProofCount" optional="YES" attributeType="Integer 32" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- Census Entity -->
+    <entity name="CensusEntity" representedClassName="CensusEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="censusDescription" attributeType="String"/>
+        <attribute name="creator" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="active" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="enableLocation" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="minAge" attributeType="Integer 16" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="merkleRoot" attributeType="String"/>
+        <attribute name="ipfsHash" optional="YES" attributeType="String"/>
+        <attribute name="totalMembers" optional="YES" attributeType="Integer 32" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="registrations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RegistrationEntity" inverseName="census" inverseEntity="RegistrationEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- Registration Entity -->
+    <entity name="RegistrationEntity" representedClassName="RegistrationEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="censusId" attributeType="String"/>
+        <attribute name="nullifierHash" attributeType="String"/>
+        <attribute name="ageRange" attributeType="Integer 16" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="continent" attributeType="Integer 16" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Integer 64" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="transactionSignature" optional="YES" attributeType="String"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="census" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CensusEntity" inverseName="registrations" inverseEntity="CensusEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="nullifierHash"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- Company Page Entity -->
+    <entity name="CompanyPageEntity" representedClassName="CompanyPageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="companyName" attributeType="String"/>
+        <attribute name="companyDescription" attributeType="String"/>
+        <attribute name="logoUrl" optional="YES" attributeType="String"/>
+        <attribute name="website" optional="YES" attributeType="String"/>
+        <attribute name="industry" optional="YES" attributeType="String"/>
+        <attribute name="size" optional="YES" attributeType="String"/>
+        <attribute name="foundedYear" optional="YES" attributeType="Integer 32" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="walletAddress" attributeType="String"/>
+        <attribute name="verificationStatus" attributeType="String"/>
+        <attribute name="totalMembers" optional="YES" attributeType="Integer 32" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="verifiedShares" optional="YES" attributeType="Integer 32" defaultValue="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- Connection Entity -->
+    <entity name="ConnectionEntity" representedClassName="ConnectionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="userId" attributeType="String"/>
+        <attribute name="companyId" attributeType="String"/>
+        <attribute name="companyName" attributeType="String"/>
+        <attribute name="companyLogoUrl" optional="YES" attributeType="String"/>
+        <attribute name="connectedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastInteraction" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- ZK Share Entity -->
+    <entity name="ZKShareEntity" representedClassName="ZKShareEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="userId" attributeType="String"/>
+        <attribute name="companyId" attributeType="String"/>
+        <attribute name="censusId" attributeType="String"/>
+        <attribute name="nullifierHash" attributeType="String"/>
+        <attribute name="sharedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="expiresAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+
+    <!-- App Settings Entity -->
+    <entity name="AppSettingsEntity" representedClassName="AppSettingsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="biometricsEnabled" attributeType="Boolean" defaultValue="NO" usesScalarValueType="YES"/>
+        <attribute name="autoDeletePassportData" attributeType="Boolean" defaultValue="YES" usesScalarValueType="YES"/>
+        <attribute name="notificationsEnabled" attributeType="Boolean" defaultValue="YES" usesScalarValueType="YES"/>
+        <attribute name="analyticsEnabled" attributeType="Boolean" defaultValue="NO" usesScalarValueType="YES"/>
+        <attribute name="selectedNetwork" attributeType="String" defaultValue="devnet"/>
+        <attribute name="lastSyncDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+
+</model>
