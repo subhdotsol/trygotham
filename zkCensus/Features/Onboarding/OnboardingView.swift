@@ -210,14 +210,17 @@ struct OnboardingView: View {
     }
 
     private func handleEmailLogin() {
-        print("Continue with email via Privy")
-        // Navigate to email login view
-        // This view will handle sending the code and verifying it
-        errorMessage = "Email login - Navigate to email verification screen"
-        showError = true
+        print("Continue with email - BYPASSED for development")
+        // TEMPORARY: Bypass email authentication for development/testing
+        // In production, this should properly authenticate with Privy
 
-        // TODO: Navigate to EmailLoginView
-        // NavigationLink or sheet presentation
+        // Simulate successful authentication
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("Email authentication bypassed - proceeding to app")
+            // TODO: Set proper authentication state when email flow is implemented
+            // For now, just close the error if it's showing
+            self.showError = false
+        }
     }
 }
 
