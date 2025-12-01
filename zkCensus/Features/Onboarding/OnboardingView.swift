@@ -194,6 +194,11 @@ struct OnboardingView: View {
     // MARK: - Login Methods
 
     private func handleGoogleLogin() {
+        print("Continue with Google - BYPASSED for development")
+        // TEMPORARY: Bypass Google authentication for development/testing
+        // In production, this should properly authenticate with Privy
+        
+        /* COMMENTED OUT - Original Privy Google Authentication
         print("Continue with Google via Privy")
         Task {
             do {
@@ -206,6 +211,16 @@ struct OnboardingView: View {
                     showError = true
                 }
             }
+        }
+        */
+        
+        // Simulate successful authentication and navigate to user type selection
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("Google authentication bypassed - user authenticated")
+            // Mark user as authenticated to proceed to the app
+            self.authManager.isAuthenticated = true
+            // Set a default user type (can be changed based on actual flow)
+            self.authManager.userType = .individual
         }
     }
 

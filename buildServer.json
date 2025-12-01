@@ -1,0 +1,19 @@
+{
+	"name": "xcode build server",
+	"version": "0.2",
+	"bspVersion": "2.0",
+	"languages": [
+		"c",
+		"cpp",
+		"objective-c",
+		"objective-cpp",
+		"swift"
+	],
+	"argv": [
+		"/opt/homebrew/bin/xcode-build-server"
+	],
+	"workspace": "/Users/subh/Desktop/code-playground/trygotham/zkCensus.xcodeproj/project.xcworkspace",
+	"build_root": "/Users/subh/Library/Developer/Xcode/DerivedData/zkCensus-buwihqpmotygyrbbzagmtkhssvgw",
+	"scheme": "zkCensus",
+	"kind": "xcode"
+}

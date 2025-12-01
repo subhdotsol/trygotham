@@ -4,6 +4,10 @@ import Combine
 
 /// Service for integrating with Privy for social login and embedded wallets
 /// Official iOS SDK: https://github.com/privy-io/privy-ios
+///
+/// NOTE: Currently BYPASSED in OnboardingView.swift for development
+/// The authentication methods below are functional but not being called.
+/// See OnboardingView.swift handleGoogleLogin() and handleEmailLogin() for bypass logic.
 @MainActor
 class PrivyService: ObservableObject {
     static let shared = PrivyService()

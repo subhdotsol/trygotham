@@ -3,6 +3,10 @@ import SwiftUI
 import Combine
 
 /// Manages user authentication and session state
+///
+/// NOTE: Wallet-based authentication (signInAsCompany, signInAsIndividual) is currently BYPASSED
+/// The OnboardingView directly sets isAuthenticated = true and userType = .individual
+/// See OnboardingView.swift handleGoogleLogin() and handleEmailLogin() for bypass logic.
 class AuthenticationManager: ObservableObject {
     static let shared = AuthenticationManager()
 
