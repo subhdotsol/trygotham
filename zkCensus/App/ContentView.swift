@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authManager: AuthenticationManager
+    @Environment(\.scenePhase) var scenePhase
     @State private var showSplash = true
 
     var body: some View {
@@ -18,6 +19,12 @@ struct ContentView: View {
             } else {
                 // Show onboarding
                 OnboardingView()
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active && !showSplash {
+                // Reset splash screen when app becomes active from background
+                showSplash = true
             }
         }
     }
@@ -43,16 +50,16 @@ struct SplashScreen: View {
             )
             .ignoresSafeArea()
             
-            // Logo - Try custom image first, fallback to SF Symbol
+            // Logo - Load from bundle
             Group {
-                if let _ = UIImage(named: "ghost") {
-                    Image("ghost")
+                if let ghostImage = loadGhostImage() {
+                    Image(uiImage: ghostImage)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 120, height: 120)
                 } else {
-                    // Fallback to SF Symbol
-                    Image(systemName: "person.fill.questionmark")
+                    // Fallback: Use a ghost-like SF Symbol
+                    Image(systemName: "sparkles")
                         .font(.system(size: 80))
                         .foregroundColor(.white)
                 }
@@ -79,6 +86,26 @@ struct SplashScreen: View {
                 }
             }
         }
+    }
+    
+    private func loadGhostImage() -> UIImage? {
+        // Try multiple paths
+        if let image = UIImage(named: "ghost") {
+            return image
+        }
+        
+        // Try loading from bundle
+        if let path = Bundle.main.path(forResource: "ghost", ofType: "png"),
+           let image = UIImage(contentsOfFile: path) {
+            return image
+        }
+        
+        // Try Assets catalog
+        if let image = UIImage(named: "ghost", in: Bundle.main, compatibleWith: nil) {
+            return image
+        }
+        
+        return nil
     }
 }
 

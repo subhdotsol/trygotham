@@ -3,6 +3,7 @@ import AVFoundation
 
 struct PassportScannerView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @StateObject private var scanner = PassportScannerService()
     @StateObject private var zkProofService = ZKProofService.shared
 
@@ -67,9 +68,12 @@ struct PassportScannerView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
+                    Button(action: {
                         cleanup()
-                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .foregroundColor(.white)
                     }
                 }
             }
