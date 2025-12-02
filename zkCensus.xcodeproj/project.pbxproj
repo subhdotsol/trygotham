@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,7 +59,7 @@
 		DCC3CCB893F2F97B58CFE216 /* CreateCensusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCensusView.swift; sourceTree = "<group>"; };
 		DF3CEED499D7B3D6890316B6 /* zkCensus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = zkCensus.xcdatamodel; sourceTree = "<group>"; };
 		E79FD3F52BA0EB4AB5EDF179 /* CompanyDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDashboardView.swift; sourceTree = "<group>"; };
-		F1130C48AF673CC0BBA31A83 /* Package.swift.disabled */ = {isa = PBXFileReference; path = Package.swift.disabled; sourceTree = "<group>"; };
+		F1130C48AF673CC0BBA31A83 /* Package.swift.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = Package.swift.disabled; sourceTree = "<group>"; };
 		F21BC671B352B9BD5D6DFC47 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		FB649EF002824EB782740591 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		FE9A342F32C1908ADB7BA31E /* CensusModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensusModels.swift; sourceTree = "<group>"; };
@@ -317,7 +317,6 @@
 				DB1CB5A2246CB6A2A3E29679 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				418E4F58042AB98BE5D4A917 /* XCRemoteSwiftPackageReference "privy-ios" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

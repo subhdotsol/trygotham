@@ -21,25 +21,25 @@ struct OnboardingView: View {
                                 .ignoresSafeArea()
                                 .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
                         } else {
-                            // Fallback gradient background
+                            // Fallback gradient background (Gotham Night)
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    Color(red: 0.1, green: 0.2, blue: 0.45),
-                                    Color(red: 0.2, green: 0.3, blue: 0.6)
+                                    Color(red: 0.09, green: 0.11, blue: 0.14), // Dark slate
+                                    Color(red: 0.02, green: 0.02, blue: 0.03)  // Almost black
                                 ]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
                             .ignoresSafeArea()
                         }
                     }
 
-                    // Subtle vignette / contrast overlay
+                    // Dramatic shadow overlay
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color.black.opacity(0.14),
+                            Color.black.opacity(0.2),
                             Color.clear,
-                            Color.black.opacity(0.5)
+                            Color.black.opacity(0.8)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
@@ -48,31 +48,39 @@ struct OnboardingView: View {
 
                     // MARK: Foreground content
                     VStack {
-                        Spacer(minLength: geometry.size.height * 0.12)
+                        Spacer(minLength: geometry.size.height * 0.10)
+
+                        // Logo
+                        Image("ghost")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .shadow(color: .white.opacity(0.1), radius: 10, x: 0, y: 0)
+                            .padding(.bottom, 20)
 
                         // Tagline
-                        VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .center, spacing: 16) {
                             Text("Democracy doesn't need your name")
-                                .font(.system(size: 34, weight: .bold, design: .default))
+                                .font(.system(size: 36, weight: .heavy, design: .default))
                                 .foregroundColor(.white)
-                                .multilineTextAlignment(.leading)
+                                .multilineTextAlignment(.center)
                                 .lineSpacing(4)
-                                .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
+                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
 
                             Text("Prove your identity with zero knowledge. Your passport stays private.")
-                                .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.white.opacity(0.85))
-                                .multilineTextAlignment(.leading)
-                                .lineSpacing(2)
+                                .font(.system(size: 17, weight: .regular))
+                                .foregroundColor(.white.opacity(0.7))
+                                .multilineTextAlignment(.center)
+                                .lineSpacing(4)
                         }
                         .padding(.horizontal, 30)
-                        .padding(.bottom, geometry.size.height * 0.08)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, geometry.size.height * 0.05)
+                        .frame(maxWidth: .infinity, alignment: .center)
 
                         Spacer()
 
                         // MARK: Buttons
-                        VStack(spacing: 14) {
+                        VStack(spacing: 16) {
 
                             // Continue with Google
                             Button(action: {
@@ -80,24 +88,31 @@ struct OnboardingView: View {
                                 handleGoogleLogin()
                             }) {
                                 HStack {
-                                    Image("google_logo")
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .frame(width: 22, height: 22)
-                                        .cornerRadius(3)
+                                    // Try to load asset; if missing, use SF Symbol fallback
+                                    if UIImage(named: "google_logo") != nil {
+                                        Image("google_logo")
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .frame(width: 22, height: 22)
+                                            .cornerRadius(3)
+                                    } else {
+                                        Image(systemName: "g.circle.fill")
+                                            .font(.system(size: 22, weight: .regular))
+                                            .foregroundColor(.black)
+                                    }
 
                                     Text("Continue with Google")
-                                        .font(.system(size: 17, weight: .semibold))
+                                        .font(.system(size: 17, weight: .bold))
                                 }
                                 .foregroundColor(.black)
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 54)
+                                .frame(height: 56)
                                 .background(
                                     Capsule()
                                         .fill(Color.white)
                                 )
-                                .shadow(color: Color.black.opacity(0.12),
-                                        radius: 8, x: 0, y: 4)
+                                .shadow(color: Color.white.opacity(0.1),
+                                        radius: 10, x: 0, y: 0) // Glow effect
                             }
                             .buttonStyle(PressableButtonStyle())
 
@@ -114,21 +129,22 @@ struct OnboardingView: View {
                                         .font(.system(size: 17, weight: .medium))
                                 }
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 54)
+                                .frame(height: 56)
                                 .background(
                                     Capsule()
                                         .fill(.ultraThinMaterial)
+                                        .opacity(0.8)
                                 )
                                 .overlay(
                                     Capsule()
-                                        .stroke(Color.white.opacity(0.18), lineWidth: 1)
+                                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
                                 )
                                 .foregroundColor(.white)
                             }
                             .buttonStyle(PressableButtonStyle())
                         }
                         .padding(.horizontal, 32)
-                        .padding(.bottom, 12)
+                        .padding(.bottom, 20)
 
                         // MARK: Legal text
                         VStack(spacing: 6) {

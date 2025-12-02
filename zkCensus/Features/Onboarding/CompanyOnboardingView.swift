@@ -15,120 +15,164 @@ struct CompanyOnboardingView: View {
     @State private var errorMessage = ""
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                // Header
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Create Company Profile")
-                        .font(.title)
-                        .fontWeight(.bold)
+        ZStack {
+            // Background gradient (Gotham Night)
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.09, green: 0.11, blue: 0.14), // Dark slate
+                    Color(red: 0.02, green: 0.02, blue: 0.03)  // Almost black
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
 
-                    Text("Set up your company page to start creating census")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.top)
-
-                // Form Fields
-                VStack(alignment: .leading, spacing: 20) {
-                    // Company Name
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // Header
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Company Name")
-                            .font(.headline)
-                        TextField("Enter company name", text: $companyName)
-                            .textFieldStyle(.roundedBorder)
+                        Text("Create Company Profile")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+
+                        Text("Set up your company page to start creating census")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.7))
                     }
+                    .padding(.top)
 
-                    // Description
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Description")
-                            .font(.headline)
-                        TextEditor(text: $description)
-                            .frame(height: 100)
-                            .padding(8)
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(8)
-                    }
+                    // Form Fields
+                    VStack(alignment: .leading, spacing: 20) {
+                        // Company Name
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Company Name")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            TextField("", text: $companyName)
+                                .placeholder(when: companyName.isEmpty) {
+                                    Text("Enter company name").foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(Color.white.opacity(0.1))
+                                .cornerRadius(8)
+                                .foregroundColor(.white)
+                        }
 
-                    // Website
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Website (Optional)")
-                            .font(.headline)
-                        TextField("https://example.com", text: $website)
-                            .textFieldStyle(.roundedBorder)
-                            .textContentType(.URL)
-                            .keyboardType(.URL)
-                            .autocapitalization(.none)
-                    }
+                        // Description
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Description")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            TextEditor(text: $description)
+                                .frame(height: 100)
+                                .padding(4)
+                                .scrollContentBackground(.hidden) // Hide default background
+                                .background(Color.white.opacity(0.1))
+                                .cornerRadius(8)
+                                .foregroundColor(.white)
+                        }
 
-                    // Industry
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Industry (Optional)")
-                            .font(.headline)
-                        TextField("e.g., Technology, Healthcare", text: $industry)
-                            .textFieldStyle(.roundedBorder)
-                    }
+                        // Website
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Website (Optional)")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            TextField("", text: $website)
+                                .placeholder(when: website.isEmpty) {
+                                    Text("https://example.com").foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(Color.white.opacity(0.1))
+                                .cornerRadius(8)
+                                .foregroundColor(.white)
+                                .textContentType(.URL)
+                                .keyboardType(.URL)
+                                .autocapitalization(.none)
+                        }
 
-                    // Company Size
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Company Size (Optional)")
-                            .font(.headline)
+                        // Industry
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Industry (Optional)")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            TextField("", text: $industry)
+                                .placeholder(when: industry.isEmpty) {
+                                    Text("e.g., Technology, Healthcare").foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(Color.white.opacity(0.1))
+                                .cornerRadius(8)
+                                .foregroundColor(.white)
+                        }
 
-                        VStack(spacing: 8) {
-                            ForEach([
-                                CompanyPage.CompanySize.startup,
-                                .small,
-                                .medium,
-                                .large,
-                                .enterprise
-                            ], id: \.self) { size in
-                                Button {
-                                    selectedSize = size
-                                } label: {
-                                    HStack {
-                                        Text(size.displayName)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                        if selectedSize == size {
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundColor(.blue)
+                        // Company Size
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Company Size (Optional)")
+                                .font(.headline)
+                                .foregroundColor(.white)
+
+                            VStack(spacing: 8) {
+                                ForEach([
+                                    CompanyPage.CompanySize.startup,
+                                    .small,
+                                    .medium,
+                                    .large,
+                                    .enterprise
+                                ], id: \.self) { size in
+                                    Button {
+                                        selectedSize = size
+                                    } label: {
+                                        HStack {
+                                            Text(size.displayName)
+                                                .foregroundColor(.white)
+                                            Spacer()
+                                            if selectedSize == size {
+                                                Image(systemName: "checkmark.circle.fill")
+                                                    .foregroundColor(.white)
+                                            }
                                         }
+                                        .padding()
+                                        .background(selectedSize == size ? Color.white.opacity(0.2) : Color.white.opacity(0.05))
+                                        .cornerRadius(8)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(selectedSize == size ? Color.white : Color.clear, lineWidth: 1)
+                                        )
                                     }
-                                    .padding()
-                                    .background(selectedSize == size ? Color.blue.opacity(0.1) : Color.gray.opacity(0.05))
-                                    .cornerRadius(8)
                                 }
                             }
                         }
                     }
-                }
 
-                // Connect Wallet & Create Button
-                Button(action: createCompanyProfile) {
-                    HStack {
-                        if isLoading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    // Connect Wallet & Create Button
+                    Button(action: createCompanyProfile) {
+                        HStack {
+                            if isLoading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            }
+                            Text(isLoading ? "Creating Profile..." : "Connect Wallet & Create Profile")
                         }
-                        Text(isLoading ? "Creating Profile..." : "Connect Wallet & Create Profile")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(isFormValid ? Color.white : Color.gray)
+                        .cornerRadius(12)
+                        .shadow(color: isFormValid ? .white.opacity(0.2) : .clear, radius: 10, x: 0, y: 0)
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(isFormValid ? Color.blue : Color.gray)
-                    .cornerRadius(12)
-                }
-                .disabled(!isFormValid || isLoading)
+                    .disabled(!isFormValid || isLoading)
 
-                // Info Box
-                InfoBox(
-                    icon: "info.circle.fill",
-                    title: "Verification Process",
-                    message: "Your company will be verified before you can create census. This usually takes 1-2 business days."
-                )
+                    // Info Box
+                    InfoBox(
+                        icon: "info.circle.fill",
+                        title: "Verification Process",
+                        message: "Your company will be verified before you can create census. This usually takes 1-2 business days."
+                    )
+                }
+                .padding()
             }
-            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .alert("Error", isPresented: $showError) {
@@ -180,7 +224,7 @@ struct InfoBox: View {
     let icon: String
     let title: String
     let message: String
-    var color: Color = .blue
+    var color: Color = .white
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -191,16 +235,34 @@ struct InfoBox: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
 
                 Text(message)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.7))
             }
         }
         .padding()
-        .background(color.opacity(0.1))
+        .background(Color.white.opacity(0.05))
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+        )
+    }
+}
+
+// Helper for placeholder in custom TextField
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
     }
 }
 
