@@ -226,32 +226,61 @@ struct PassportScannerView: View {
     // MARK: - NFT Received View
 
     private var nftReceivedView: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "ghost.fill") // Ghost NFT
-                .font(.system(size: 100))
-                .foregroundColor(.purple)
-                .shadow(color: .purple.opacity(0.5), radius: 20)
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Ghost NFT Image
+            Image("gotham_nft")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .cornerRadius(20)
+                .shadow(color: .purple.opacity(0.3), radius: 20, x: 0, y: 10)
 
-            Text("NFT Received!")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
+            VStack(spacing: 16) {
+                Text("NFT Received!")
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundColor(.white)
 
-            Text("You have successfully minted your Ghost NFT.")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+                Text("You have verified your document.")
+                    .font(.title3)
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.center)
+                
+                Text("Now you are a part of Gotham City.")
+                    .font(.title3)
+                    .foregroundColor(.purple)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                
+                Text("You are a Ghost now 👻")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 8)
+            }
+            
+            Spacer()
 
             Button {
-                cleanup()
-                dismiss()
+                Task { @MainActor in
+                    cleanup()
+                    presentationMode.wrappedValue.dismiss()
+                }
             } label: {
                 Text("Done")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(
+                        LinearGradient(
+                            colors: [.purple, .blue],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .cornerRadius(12)
             }
         }
@@ -423,12 +452,22 @@ struct PassportScannerView: View {
 
     private func startScan() {
         currentStep = .scanning
+        
+        // On simulator, skip camera and show mock data directly
+        #if targetEnvironment(simulator)
+        // Simulate a brief scanning delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            createMockPassportData()
+            currentStep = .proofPreview
+        }
+        #else
         if scanMode == .camera {
             showCamera = true
         } else {
             // NFC scan
             // let nfcData = try await scanner.scanPassportWithNFC(...)
         }
+        #endif
     }
     
     private func createMockPassportData() {
