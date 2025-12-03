@@ -675,7 +675,7 @@ struct CompanyPublicView: View {
 struct PrivacySettingsView: View {
     var body: some View {
         ZStack {
-            Color(red: 0.09, green: 0.11, blue: 0.14).ignoresSafeArea()
+            BackgroundGradientView()
             Text("Privacy Settings")
                 .foregroundColor(.white)
         }

@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import AVFoundation
 
 struct PassportScannerView: View {
@@ -15,6 +16,8 @@ struct PassportScannerView: View {
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var currentStep: ScanStep = .selectMode
+    @State private var showCamera = false
+    @State private var capturedImage: UIImage?
 
     enum ScanMode {
         case camera
@@ -81,6 +84,15 @@ struct PassportScannerView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(errorMessage)
+            }
+        }
+        .fullScreenCover(isPresented: $showCamera) {
+            ImagePicker(image: $capturedImage, sourceType: .camera)
+                .ignoresSafeArea()
+        }
+        .onChange(of: capturedImage) { newImage in
+            if let image = newImage {
+                processCapturedImage(image)
             }
         }
     }
@@ -385,19 +397,22 @@ struct PassportScannerView: View {
     }
 
     private func startScan() {
-        currentStep = .scanning
+        if scanMode == .camera {
+            showCamera = true
+        } else {
+            // NFC scan
+            currentStep = .scanning
+            // let nfcData = try await scanner.scanPassportWithNFC(...)
+        }
+    }
 
+    private func processCapturedImage(_ image: UIImage) {
+        currentStep = .scanning
+        
         Task {
             do {
-                if scanMode == .camera {
-                    // In production, capture actual image
-                    let mockImage = UIImage(systemName: "doc.text")!
-                    let passport = try await scanner.scanPassportWithOCR(from: mockImage)
-                    scannedPassport = passport
-                } else {
-                    // NFC scan
-                    // let nfcData = try await scanner.scanPassportWithNFC(...)
-                }
+                let passport = try await scanner.scanPassportWithOCR(from: image)
+                scannedPassport = passport
             } catch {
                 errorMessage = error.localizedDescription
                 showError = true
@@ -648,6 +663,47 @@ struct CensusSelectorList: View {
             censuses = all.filter { $0.active }
         } catch {
             print("Failed to load censuses: \(error)")
+        }
+    }
+}
+
+// MARK: - Image Picker
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+    @Environment(\.presentationMode) var presentationMode
+    var sourceType: UIImagePickerController.SourceType = .camera
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.sourceType = sourceType
+        picker.allowsEditing = false
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.image = uiImage
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
         }
     }
 }
