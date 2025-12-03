@@ -4,6 +4,16 @@ struct CompanyDashboardView: View {
     @EnvironmentObject var authManager: AuthenticationManager
     @State private var selectedTab = 0
     @State private var showCreateCensus = false
+    
+    init() {
+        // Customize TabBar appearance
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(red: 0.2, green: 0.9, blue: 0.2, alpha: 1.0)
+        
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -35,6 +45,7 @@ struct CompanyDashboardView: View {
                 }
                 .tag(3)
         }
+        .accentColor(.black)
         .sheet(isPresented: $showCreateCensus) {
             CreateCensusView()
         }

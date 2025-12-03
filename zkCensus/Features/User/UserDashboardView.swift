@@ -8,7 +8,7 @@ struct UserDashboardView: View {
         // Customize TabBar appearance
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(red: 0.09, green: 0.11, blue: 0.14, alpha: 1.0)
+        appearance.backgroundColor = UIColor(red: 0.2, green: 0.9, blue: 0.2, alpha: 1.0)
         
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
@@ -26,7 +26,7 @@ struct UserDashboardView: View {
             // My Proofs
             MyProofsView()
                 .tabItem {
-                    Label("My Proofs", systemImage: "shield.checkmark.fill")
+                    Label("My Proofs", systemImage: "person.badge.key")
                 }
                 .tag(1)
 
@@ -44,8 +44,7 @@ struct UserDashboardView: View {
                 }
                 .tag(3)
         }
-        .accentColor(.white)
-        .preferredColorScheme(.dark)
+        .accentColor(.black)
     }
 }
 
@@ -59,16 +58,8 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background gradient (Gotham Night)
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 0.09, green: 0.11, blue: 0.14), // Dark slate
-                        Color(red: 0.02, green: 0.02, blue: 0.03)  // Almost black
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                // Background gradient
+                BackgroundGradientView()
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -80,7 +71,7 @@ struct HomeView: View {
                             Text("Available Census")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .padding(.horizontal)
 
                             if censuses.isEmpty {
@@ -100,9 +91,7 @@ struct HomeView: View {
             }
             .navigationTitle("zk-Census")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color(red: 0.09, green: 0.11, blue: 0.14), for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .task {
                 await loadCensuses()
             }
@@ -116,14 +105,14 @@ struct HomeView: View {
         VStack(spacing: 16) {
             Text("Quick Actions")
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             HStack(spacing: 16) {
                 QuickActionButton(
                     icon: "camera.fill",
                     title: "Scan Passport",
-                    color: .white
+                    color: .black
                 ) {
                     showScanPassport = true
                 }
@@ -131,7 +120,7 @@ struct HomeView: View {
                 QuickActionButton(
                     icon: "building.2.fill",
                     title: "Find Companies",
-                    color: .white
+                    color: .black
                 ) {
                     // Navigate to companies
                 }
@@ -192,16 +181,16 @@ struct QuickActionButton: View {
                 Text(title)
                     .font(.caption)
                     .fontWeight(.medium)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.white.opacity(0.05))
+            .background(Color.white.opacity(0.2))
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    .stroke(Color.black.opacity(0.2), lineWidth: 1)
             )
         }
     }
@@ -270,15 +259,7 @@ struct MyProofsView: View {
         NavigationStack {
             ZStack {
                 // Background gradient
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 0.09, green: 0.11, blue: 0.14),
-                        Color(red: 0.02, green: 0.02, blue: 0.03)
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradientView()
 
                 ScrollView {
                     if registrations.isEmpty {
@@ -308,9 +289,7 @@ struct MyProofsView: View {
                 }
             }
             .navigationTitle("My Proofs")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color(red: 0.09, green: 0.11, blue: 0.14), for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
         }
     }
 }
@@ -369,15 +348,7 @@ struct UserCompaniesView: View {
         NavigationStack {
             ZStack {
                 // Background gradient
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 0.09, green: 0.11, blue: 0.14),
-                        Color(red: 0.02, green: 0.02, blue: 0.03)
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradientView()
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
@@ -420,16 +391,14 @@ struct UserCompaniesView: View {
                 }
             }
             .navigationTitle("Companies")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color(red: 0.09, green: 0.11, blue: 0.14), for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showSearch = true
                     } label: {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                     }
                 }
             }
@@ -550,15 +519,7 @@ struct UserProfileView: View {
         NavigationStack {
             ZStack {
                 // Background gradient
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 0.09, green: 0.11, blue: 0.14),
-                        Color(red: 0.02, green: 0.02, blue: 0.03)
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradientView()
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -668,9 +629,7 @@ struct UserProfileView: View {
                 }
             }
             .navigationTitle("Profile")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color(red: 0.09, green: 0.11, blue: 0.14), for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
         }
     }
 }

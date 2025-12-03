@@ -26,11 +26,11 @@ struct CompanyOnboardingView: View {
                         Text("Create Company Profile")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
                         Text("Set up your company page to start creating census")
                             .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.black.opacity(0.8))
                     }
                     .padding(.top)
 
@@ -40,44 +40,44 @@ struct CompanyOnboardingView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Company Name")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             TextField("", text: $companyName)
                                 .placeholder(when: companyName.isEmpty) {
                                     Text("Enter company name").foregroundColor(.gray)
                                 }
                                 .padding()
-                                .background(Color.white.opacity(0.1))
+                                .background(Color.white.opacity(0.3))
                                 .cornerRadius(8)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         }
 
                         // Description
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Description")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             TextEditor(text: $description)
                                 .frame(height: 100)
                                 .padding(4)
                                 .scrollContentBackground(.hidden) // Hide default background
-                                .background(Color.white.opacity(0.1))
+                                .background(Color.white.opacity(0.3))
                                 .cornerRadius(8)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         }
 
                         // Website
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Website (Optional)")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             TextField("", text: $website)
                                 .placeholder(when: website.isEmpty) {
                                     Text("https://example.com").foregroundColor(.gray)
                                 }
                                 .padding()
-                                .background(Color.white.opacity(0.1))
+                                .background(Color.white.opacity(0.3))
                                 .cornerRadius(8)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .textContentType(.URL)
                                 .keyboardType(.URL)
                                 .autocapitalization(.none)
@@ -87,22 +87,22 @@ struct CompanyOnboardingView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Industry (Optional)")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             TextField("", text: $industry)
                                 .placeholder(when: industry.isEmpty) {
                                     Text("e.g., Technology, Healthcare").foregroundColor(.gray)
                                 }
                                 .padding()
-                                .background(Color.white.opacity(0.1))
+                                .background(Color.white.opacity(0.3))
                                 .cornerRadius(8)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         }
 
                         // Company Size
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Company Size (Optional)")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
 
                             VStack(spacing: 8) {
                                 ForEach([
@@ -117,11 +117,11 @@ struct CompanyOnboardingView: View {
                                     } label: {
                                         HStack {
                                             Text(size.displayName)
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.black)
                                             Spacer()
                                             if selectedSize == size {
                                                 Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundColor(.white)
+                                                    .foregroundColor(.black)
                                             }
                                         }
                                         .padding()
@@ -129,7 +129,7 @@ struct CompanyOnboardingView: View {
                                         .cornerRadius(8)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                                .stroke(selectedSize == size ? Color.white : Color.clear, lineWidth: 1)
+                                                .stroke(selectedSize == size ? Color.black : Color.clear, lineWidth: 1)
                                         )
                                     }
                                 }
@@ -216,7 +216,7 @@ struct InfoBox: View {
     let icon: String
     let title: String
     let message: String
-    var color: Color = .white
+    var color: Color = .black
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -227,19 +227,19 @@ struct InfoBox: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
 
                 Text(message)
                     .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.8))
             }
         }
         .padding()
-        .background(Color.white.opacity(0.05))
+        .background(Color.white.opacity(0.2))
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                .stroke(Color.black.opacity(0.2), lineWidth: 1)
         )
     }
 }

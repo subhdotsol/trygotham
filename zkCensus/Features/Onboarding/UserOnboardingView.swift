@@ -19,17 +19,17 @@ struct UserOnboardingView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "person.badge.shield.checkmark.fill")
                             .font(.system(size: 80))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .shadow(color: .white.opacity(0.2), radius: 10, x: 0, y: 0)
 
                         Text("Get Started")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
                         Text("Connect your Solana wallet to start creating zero-knowledge proofs")
                             .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.black.opacity(0.8))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                     }
@@ -40,7 +40,7 @@ struct UserOnboardingView: View {
                         Text("How it works")
                             .font(.title2)
                             .fontWeight(.semibold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
                         StepView(
                             number: 1,
@@ -67,11 +67,11 @@ struct UserOnboardingView: View {
                         )
                     }
                     .padding()
-                    .background(Color.white.opacity(0.05))
+                    .background(Color.white.opacity(0.2))
                     .cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                            .stroke(Color.black.opacity(0.2), lineWidth: 1)
                     )
                     .padding(.horizontal)
 
@@ -79,52 +79,52 @@ struct UserOnboardingView: View {
                     VStack(spacing: 16) {
                         HStack {
                             Image(systemName: "lock.shield.fill")
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .font(.title)
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Complete Privacy")
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
 
                                 Text("Your passport data never leaves your device")
                                     .font(.caption)
-                                    .foregroundColor(.white.opacity(0.7))
+                                    .foregroundColor(.black.opacity(0.8))
                             }
 
                             Spacer()
                         }
                         .padding()
-                        .background(Color.white.opacity(0.05))
+                        .background(Color.white.opacity(0.2))
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                .stroke(Color.black.opacity(0.2), lineWidth: 1)
                         )
 
                         HStack {
                             Image(systemName: "eye.slash.fill")
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .font(.title)
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Zero Knowledge")
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
 
                                 Text("Prove facts without revealing personal information")
                                     .font(.caption)
-                                    .foregroundColor(.white.opacity(0.7))
+                                    .foregroundColor(.black.opacity(0.8))
                             }
 
                             Spacer()
                         }
                         .padding()
-                        .background(Color.white.opacity(0.05))
+                        .background(Color.white.opacity(0.2))
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                .stroke(Color.black.opacity(0.2), lineWidth: 1)
                         )
                     }
                     .padding(.horizontal)
@@ -147,7 +147,7 @@ struct UserOnboardingView: View {
                         .padding()
                         .background(Color.white)
                         .cornerRadius(12)
-                        .shadow(color: .white.opacity(0.1), radius: 10, x: 0, y: 0)
+                        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
                         .padding(.horizontal)
                     }
                     .disabled(isLoading)
@@ -195,22 +195,22 @@ struct StepView: View {
         HStack(alignment: .top, spacing: 16) {
             ZStack {
                 Circle()
-                    .fill(Color.white.opacity(0.1))
+                    .fill(Color.black.opacity(0.2))
                     .frame(width: 40, height: 40)
 
                 Text("\(number)")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
             }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
 
                 Text(description)
                     .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.8))
             }
 
             Spacer()

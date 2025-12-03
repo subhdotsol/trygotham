@@ -73,7 +73,7 @@ struct PassportScannerView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Cancel")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                     }
                 }
             }

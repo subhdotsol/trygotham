@@ -10,33 +10,8 @@ struct OnboardingView: View {
             GeometryReader { geometry in
                 ZStack {
 
-                    // MARK: Background – Full screen gradient or image
-                    // If you have an "Onboarding" image in Assets.xcassets, it will be used
-                    // Otherwise, a beautiful gradient will be shown
-                    Group {
-                        if let _ = UIImage(named: "Onboarding") {
-                            Image("Onboarding")
-                                .resizable()
-                                .scaledToFill()
-                                .ignoresSafeArea()
-                                .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
-                        } else {
-                            // Fallback gradient background
-                            BackgroundGradientView()
-                        }
-                    }
-
-                    // Dramatic shadow overlay
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color.black.opacity(0.2),
-                            Color.clear,
-                            Color.black.opacity(0.8)
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .ignoresSafeArea()
+                    // MARK: Background – Radiant gradient
+                    BackgroundGradientView()
 
                     // MARK: Foreground content
                     VStack {
@@ -47,21 +22,21 @@ struct OnboardingView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
-                            .shadow(color: .white.opacity(0.1), radius: 10, x: 0, y: 0)
+                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
                             .padding(.bottom, 20)
 
                         // Tagline
                         VStack(alignment: .center, spacing: 16) {
                             Text("Democracy doesn't need your name")
                                 .font(.system(size: 36, weight: .heavy, design: .default))
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
                                 .lineSpacing(4)
-                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+                                .shadow(color: .white.opacity(0.3), radius: 2, x: 0, y: 1)
 
                             Text("Prove your identity with zero knowledge. Your passport stays private.")
                                 .font(.system(size: 17, weight: .regular))
-                                .foregroundColor(.white.opacity(0.7))
+                                .foregroundColor(.black.opacity(0.8))
                                 .multilineTextAlignment(.center)
                                 .lineSpacing(4)
                         }
@@ -131,7 +106,7 @@ struct OnboardingView: View {
                                     Capsule()
                                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                                 )
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             }
                             .buttonStyle(PressableButtonStyle())
                         }
@@ -142,23 +117,23 @@ struct OnboardingView: View {
                         VStack(spacing: 6) {
                             Text("By pressing \"Continue\", you agree to our")
                                 .font(.system(size: 12))
-                                .foregroundColor(.white.opacity(0.65))
+                                .foregroundColor(.black.opacity(0.7))
 
                             HStack(spacing: 6) {
                                 Button(action: { print("Terms tapped") }) {
                                     Text("Terms of Service")
                                         .font(.system(size: 12, weight: .medium))
                                         .underline()
-                                        .foregroundColor(.white.opacity(0.85))
+                                        .foregroundColor(.black)
                                 }
                                 Text("and")
                                     .font(.system(size: 12))
-                                    .foregroundColor(.white.opacity(0.65))
+                                    .foregroundColor(.black.opacity(0.7))
                                 Button(action: { print("Privacy tapped") }) {
                                     Text("Privacy Policy")
                                         .font(.system(size: 12, weight: .medium))
                                         .underline()
-                                        .foregroundColor(.white.opacity(0.85))
+                                        .foregroundColor(.black)
                                 }
                             }
                         }
@@ -172,10 +147,10 @@ struct OnboardingView: View {
                                 Text("Encrypted")
                                     .font(.system(size: 11, weight: .medium))
                             }
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.black.opacity(0.7))
 
                             Circle()
-                                .fill(Color.white.opacity(0.3))
+                                .fill(Color.black.opacity(0.3))
                                 .frame(width: 3, height: 3)
 
                             HStack(spacing: 4) {
@@ -184,7 +159,7 @@ struct OnboardingView: View {
                                 Text("No tracking")
                                     .font(.system(size: 11, weight: .medium))
                             }
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.black.opacity(0.7))
                         }
                         .padding(.bottom, max(geometry.safeAreaInsets.bottom, 10) - 6)
                     }
