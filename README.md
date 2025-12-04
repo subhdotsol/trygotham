@@ -14,7 +14,7 @@ Ghost lets you prove who you are without revealing who you are. Scan your passpo
 
 ## The Problem
 
-Every time you want to prove your age, nationality, or identity online, you have to hand over your actual data. Your name, passport number, everything — stored on some company's server, waiting to be leaked or sold.
+Every time you want to prove your age, nationality, or identity online, you have to hand over your actual data. Your name, passport number, everything stored on some company's server, waiting to be leaked or sold.
 
 That's broken.
 
@@ -90,7 +90,7 @@ You're anonymous. You're a ghost.
 
 ---
 
-## Roadmap
+## Our Future Plans
 
 - [ ] Active Authentication for NFC passport chips
 - [ ] Support for ID cards and driver's licenses
