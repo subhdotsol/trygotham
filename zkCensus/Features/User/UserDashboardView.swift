@@ -312,10 +312,15 @@ struct MyProofsView: View {
                     }
                 }
             }
-            .navigationTitle("My Proofs")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("My Proofs")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+            }
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(Color.clear, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
         }
     }
 }
@@ -418,20 +423,23 @@ struct UserCompaniesView: View {
                     .padding(.vertical)
                 }
             }
-            .navigationTitle("Companies")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color.clear, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Companies")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showSearch = true
                     } label: {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                     }
                 }
             }
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(Color.clear, for: .navigationBar)
             .task {
                 await loadCompanies()
             }
@@ -560,10 +568,15 @@ struct UserProfileView: View {
                     .padding(.bottom)
                 }
             }
-            .navigationTitle("Profile")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Profile")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+            }
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(Color.clear, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
         }
     }
 
