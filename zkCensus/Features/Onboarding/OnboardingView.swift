@@ -119,7 +119,7 @@ struct OnboardingView: View {
                         VStack(spacing: 6) {
                             Text("By pressing \"Continue\", you agree to our")
                                 .font(.system(size: 12))
-                                .foregroundColor(.black.opacity(0.7))
+                                .foregroundColor(.white.opacity(0.7))
 
                             HStack(spacing: 6) {
                                 Button(action: { print("Terms tapped") }) {

@@ -259,13 +259,13 @@ struct PassportScannerView: View {
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
 
-                Text("Now you are a part of Gotham City.")
+                Text("Now you are a part of Gotham.")
                     .font(.title3)
-                    .foregroundColor(.purple)
+                    .foregroundColor(.white)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
 
-                Text("You are a Ghost now 👻")
+                Text("You are a Ghost now")
                     .font(.title2)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
@@ -283,16 +283,10 @@ struct PassportScannerView: View {
             } label: {
                 Text("Done")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(
-                        LinearGradient(
-                            colors: [.purple, .blue],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
+                    .background(Color.white)
                     .cornerRadius(12)
             }
         }
@@ -405,15 +399,15 @@ struct PassportScannerView: View {
             HStack {
                 if scanner.isScanning || zkProofService.isGeneratingProof {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                 }
                 Text(actionButtonTitle)
             }
             .font(.headline)
-            .foregroundColor(.white)
+            .foregroundColor(.black)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(actionButtonEnabled ? Color.blue : Color.gray)
+            .background(actionButtonEnabled ? Color.white : Color.gray)
             .cornerRadius(12)
         }
         .disabled(!actionButtonEnabled)
@@ -609,13 +603,13 @@ struct StepIndicator: View {
         VStack(spacing: 4) {
             ZStack {
                 Circle()
-                    .fill(isActive ? Color.blue : Color.white.opacity(0.3))
+                    .fill(isActive ? Color.white : Color.white.opacity(0.3))
                     .frame(width: 30, height: 30)
 
                 Text("\(number)")
                     .font(.caption)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white)
+                    .foregroundColor(isActive ? .black : .white)
             }
 
             Text(title)
