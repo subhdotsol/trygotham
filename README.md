@@ -18,7 +18,7 @@ Every time you want to prove your age, nationality, or identity online, you have
 
 That's broken.
 
-## What Ghost Does
+## What Ghost Does ?
 
 Ghost flips the script. You scan your passport locally on your phone. The app extracts what's needed, randomizes the specifics, and generates a cryptographic proof that says *"yes, this person is real and meets the criteria"* — without revealing anything else.
 
