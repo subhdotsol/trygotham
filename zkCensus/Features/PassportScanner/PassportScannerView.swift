@@ -1,6 +1,6 @@
+import AVFoundation
 import SwiftUI
 import UIKit
-import AVFoundation
 
 struct PassportScannerView: View {
     @Environment(\.dismiss) var dismiss
@@ -26,10 +26,10 @@ struct PassportScannerView: View {
 
     enum ScanStep {
         case selectMode
-        case scanning // Camera/census step
-        case proofPreview // Proof step
-        case submitting // Submit step
-        case complete // NFT received
+        case scanning  // Camera/census step
+        case proofPreview  // Proof step
+        case submitting  // Submit step
+        case complete  // NFT received
     }
 
     var body: some View {
@@ -64,8 +64,12 @@ struct PassportScannerView: View {
                         .padding()
                 }
             }
+            .background(Color.black)
             .navigationTitle("Scan Passport")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.black, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -74,14 +78,16 @@ struct PassportScannerView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
+                    .foregroundColor(.white)
                 }
             }
             .alert("Error", isPresented: $showError) {
-                Button("OK", role: .cancel) { }
+                Button("OK", role: .cancel) {}
             } message: {
                 Text(errorMessage)
             }
         }
+        .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $showCamera) {
             ImagePicker(image: $capturedImage, sourceType: .camera)
                 .ignoresSafeArea()
@@ -104,6 +110,7 @@ struct PassportScannerView: View {
             Text("How would you like to scan?")
                 .font(.title2)
                 .fontWeight(.semibold)
+                .foregroundColor(.white)
 
             VStack(spacing: 16) {
                 ScanModeCard(
@@ -125,7 +132,7 @@ struct PassportScannerView: View {
                 }
             }
 
-            InfoBox(
+            DarkInfoBox(
                 icon: "shield.fill",
                 title: "Privacy First",
                 message: "All scanning happens on your device. Passport data is never transmitted.",
@@ -148,10 +155,11 @@ struct PassportScannerView: View {
                 VStack(spacing: 12) {
                     ProgressView(value: scanner.scanProgress)
                         .progressViewStyle(LinearProgressViewStyle())
+                        .tint(.white)
 
                     Text(scanner.scanStatus)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.white.opacity(0.7))
                 }
             }
         }
@@ -165,15 +173,16 @@ struct PassportScannerView: View {
 
             Text("Position passport photo page")
                 .font(.headline)
+                .foregroundColor(.white)
 
             Text("Make sure the MRZ (machine readable zone) at the bottom is clearly visible")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
 
             // Placeholder for camera preview
             Rectangle()
-                .fill(Color.black)
+                .fill(Color.gray.opacity(0.2))
                 .frame(height: 300)
                 .cornerRadius(12)
                 .overlay(
@@ -192,13 +201,14 @@ struct PassportScannerView: View {
 
             Text("Hold passport to phone")
                 .font(.headline)
+                .foregroundColor(.white)
 
             Text("Place your passport on the back of your iPhone and hold it steady")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
 
-            Image("nfc_guide") // Placeholder
+            Image("nfc_guide")  // Placeholder
                 .resizable()
                 .scaledToFit()
                 .frame(height: 200)
@@ -211,14 +221,16 @@ struct PassportScannerView: View {
         VStack(spacing: 24) {
             ProgressView()
                 .scaleEffect(1.5)
+                .tint(.white)
 
             Text("Submitting Proof On-Chain")
                 .font(.title2)
                 .fontWeight(.semibold)
+                .foregroundColor(.white)
 
             Text("Please wait while we verify your proof and mint your NFT...")
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
         }
     }
@@ -228,7 +240,7 @@ struct PassportScannerView: View {
     private var nftReceivedView: some View {
         VStack(spacing: 32) {
             Spacer()
-            
+
             // Ghost NFT Image
             Image("gotham_nft")
                 .resizable()
@@ -246,21 +258,21 @@ struct PassportScannerView: View {
                     .font(.title3)
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
-                
-                Text("Now you are a part of Gotham City.")
+
+                Text("Now you are a part of Gotham.")
                     .font(.title3)
-                    .foregroundColor(.purple)
+                    .foregroundColor(.white)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
-                
-                Text("You are a Ghost now 👻")
+
+                Text("You are a Ghost now")
                     .font(.title2)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .padding(.top, 8)
             }
-            
+
             Spacer()
 
             Button {
@@ -271,16 +283,10 @@ struct PassportScannerView: View {
             } label: {
                 Text("Done")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(
-                        LinearGradient(
-                            colors: [.purple, .blue],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
+                    .background(Color.white)
                     .cornerRadius(12)
             }
         }
@@ -298,10 +304,11 @@ struct PassportScannerView: View {
             Text("Passport Scanned Successfully")
                 .font(.title2)
                 .fontWeight(.semibold)
+                .foregroundColor(.white)
 
             Text("Review your proof details below")
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.7))
 
             // Proof Details Card
             VStack(spacing: 20) {
@@ -312,6 +319,7 @@ struct PassportScannerView: View {
                 )
 
                 Divider()
+                    .background(Color.white.opacity(0.2))
 
                 ProofDetailRow(
                     icon: "calendar",
@@ -320,6 +328,7 @@ struct PassportScannerView: View {
                 )
 
                 Divider()
+                    .background(Color.white.opacity(0.2))
 
                 ProofDetailRow(
                     icon: "globe",
@@ -328,6 +337,7 @@ struct PassportScannerView: View {
                 )
 
                 Divider()
+                    .background(Color.white.opacity(0.2))
 
                 ProofDetailRow(
                     icon: "doc.text.fill",
@@ -336,17 +346,18 @@ struct PassportScannerView: View {
                 )
             }
             .padding()
-            .background(Color.gray.opacity(0.05))
+            .background(Color.white.opacity(0.1))
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
             )
 
-            InfoBox(
+            DarkInfoBox(
                 icon: "lock.shield.fill",
                 title: "Zero-Knowledge Proof",
-                message: "Your sensitive data remains private. Only the proof of eligibility will be submitted on-chain.",
+                message:
+                    "Your sensitive data remains private. Only the proof of eligibility will be submitted on-chain.",
                 color: .blue
             )
         }
@@ -388,15 +399,15 @@ struct PassportScannerView: View {
             HStack {
                 if scanner.isScanning || zkProofService.isGeneratingProof {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                 }
                 Text(actionButtonTitle)
             }
             .font(.headline)
-            .foregroundColor(.white)
+            .foregroundColor(.black)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(actionButtonEnabled ? Color.blue : Color.gray)
+            .background(actionButtonEnabled ? Color.white : Color.gray)
             .cornerRadius(12)
         }
         .disabled(!actionButtonEnabled)
@@ -452,47 +463,47 @@ struct PassportScannerView: View {
 
     private func startScan() {
         currentStep = .scanning
-        
+
         // On simulator, skip camera and show mock data directly
         #if targetEnvironment(simulator)
-        // Simulate a brief scanning delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            createMockPassportData()
-            currentStep = .proofPreview
-        }
+            // Simulate a brief scanning delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                createMockPassportData()
+                currentStep = .proofPreview
+            }
         #else
-        if scanMode == .camera {
-            showCamera = true
-        } else {
-            // NFC scan
-            // let nfcData = try await scanner.scanPassportWithNFC(...)
-        }
+            if scanMode == .camera {
+                showCamera = true
+            } else {
+                // NFC scan
+                // let nfcData = try await scanner.scanPassportWithNFC(...)
+            }
         #endif
     }
-    
+
     private func createMockPassportData() {
         // Create mock passport data for testing
         scannedPassport = PassportData(
             documentNumber: "AB1234567890142",
             documentType: "P",
             issuingCountry: "BRA",
-            surname: "7Xw...39a", // Public Key
+            surname: "7Xw...39a",  // Public Key
             givenNames: "Wallet",
-            nationality: "BRA", // Brazil (South America)
-            dateOfBirth: Date(timeIntervalSince1970: 1000000000), // ~2001
+            nationality: "BRA",  // Brazil (South America)
+            dateOfBirth: Date(timeIntervalSince1970: 1_000_000_000),  // ~2001
             sex: "M",
-            expiryDate: Date(timeIntervalSinceNow: 365 * 24 * 60 * 60 * 5), // 5 years from now
+            expiryDate: Date(timeIntervalSinceNow: 365 * 24 * 60 * 60 * 5),  // 5 years from now
             personalNumber: nil
         )
     }
-    
+
     private func submitProofOnChain() {
         currentStep = .submitting
-        
+
         Task {
             do {
                 // Simulate on-chain submission
-                try await Task.sleep(nanoseconds: 3_000_000_000) // 3 seconds
+                try await Task.sleep(nanoseconds: 3_000_000_000)  // 3 seconds
                 currentStep = .complete
             } catch {
                 errorMessage = "Failed to submit proof: \(error.localizedDescription)"
@@ -533,7 +544,7 @@ struct ProgressStepView: View {
 
             Divider()
                 .frame(width: 30, height: 2)
-                .background(Color.gray)
+                .background(Color.white.opacity(0.3))
 
             StepIndicator(
                 number: 2,
@@ -543,7 +554,7 @@ struct ProgressStepView: View {
 
             Divider()
                 .frame(width: 30, height: 2)
-                .background(Color.gray)
+                .background(Color.white.opacity(0.3))
 
             StepIndicator(
                 number: 3,
@@ -553,7 +564,7 @@ struct ProgressStepView: View {
 
             Divider()
                 .frame(width: 30, height: 2)
-                .background(Color.gray)
+                .background(Color.white.opacity(0.3))
 
             StepIndicator(
                 number: 4,
@@ -562,7 +573,7 @@ struct ProgressStepView: View {
             )
         }
         .padding()
-        .background(Color.gray.opacity(0.05))
+        .background(Color.white.opacity(0.1))
         .cornerRadius(12)
     }
 }
@@ -592,18 +603,18 @@ struct StepIndicator: View {
         VStack(spacing: 4) {
             ZStack {
                 Circle()
-                    .fill(isActive ? Color.blue : Color.gray.opacity(0.3))
+                    .fill(isActive ? Color.white : Color.white.opacity(0.3))
                     .frame(width: 30, height: 30)
 
                 Text("\(number)")
                     .font(.caption)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white)
+                    .foregroundColor(isActive ? .black : .white)
             }
 
             Text(title)
                 .font(.caption2)
-                .foregroundColor(isActive ? .primary : .secondary)
+                .foregroundColor(isActive ? .white : .white.opacity(0.6))
         }
     }
 }
@@ -620,17 +631,17 @@ struct ScanModeCard: View {
             HStack(spacing: 16) {
                 Image(systemName: icon)
                     .font(.system(size: 30))
-                    .foregroundColor(isSelected ? .blue : .secondary)
+                    .foregroundColor(isSelected ? .blue : .white.opacity(0.6))
                     .frame(width: 50)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.white)
 
                     Text(description)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.white.opacity(0.7))
                         .multilineTextAlignment(.leading)
                 }
 
@@ -642,11 +653,11 @@ struct ScanModeCard: View {
                 }
             }
             .padding()
-            .background(isSelected ? Color.blue.opacity(0.1) : Color.gray.opacity(0.05))
+            .background(isSelected ? Color.blue.opacity(0.2) : Color.white.opacity(0.1))
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+                    .stroke(isSelected ? Color.blue : Color.white.opacity(0.2), lineWidth: 2)
             )
         }
     }
@@ -660,25 +671,25 @@ struct ProofDetailRow: View {
     let icon: String
     let label: String
     let value: String
-    
+
     var body: some View {
         HStack(spacing: 16) {
             Image(systemName: icon)
                 .font(.system(size: 24))
                 .foregroundColor(.blue)
                 .frame(width: 40)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(label)
                     .font(.caption)
-                    .foregroundColor(.secondary)
-                
+                    .foregroundColor(.white.opacity(0.7))
+
                 Text(value)
                     .font(.body)
                     .fontWeight(.medium)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
             }
-            
+
             Spacer()
         }
     }
@@ -691,7 +702,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     var sourceType: UIImagePickerController.SourceType = .camera
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>)
+        -> UIImagePickerController
+    {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         picker.sourceType = sourceType
@@ -699,7 +712,10 @@ struct ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {}
+    func updateUIViewController(
+        _ uiViewController: UIImagePickerController,
+        context: UIViewControllerRepresentableContext<ImagePicker>
+    ) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -712,7 +728,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
             if let uiImage = info[.originalImage] as? UIImage {
                 parent.image = uiImage
             }
@@ -727,4 +746,38 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 #Preview {
     PassportScannerView()
+}
+
+// MARK: - Dark Info Box Component
+
+struct DarkInfoBox: View {
+    let icon: String
+    let title: String
+    let message: String
+    var color: Color = .blue
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .font(.title3)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                Text(message)
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.7))
+            }
+        }
+        .padding()
+        .background(Color.white.opacity(0.1))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+        )
+    }
 }
